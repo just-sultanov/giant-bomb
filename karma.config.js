@@ -3,7 +3,13 @@ process.env.CHROME_BIN = require("puppeteer").executablePath();
 module.exports = function (config) {
   config.set({
     singleRun: true,
-    browsers: ["ChromeHeadless"],
+    browsers: ["ChromeHeadlessNoSandbox"],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox"],
+      },
+    },
     basePath: "public",
     files: ["test/assets/ci.js"],
     frameworks: ["cljs-test"],
