@@ -1,0 +1,6 @@
+{:files {:ignore #{".clj-kondo/.cache" ".idea" ".cpcache" "target" ".git"}}
+
+ :rules {:blank-lines {:max-consecutive 3}
+         :types       {:enabled? false}
+         :namespaces  {:import-break-width 130}
+         :indentation {:indents {fn-traced [[:inner 0]]}}}}
