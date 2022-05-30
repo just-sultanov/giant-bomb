@@ -1,7 +1,6 @@
 (ns giant-bomb.pages.root
   (:require
     [giant-bomb.components :as components]
-    [giant-bomb.logger :as log :include-macros true]
     [giant-bomb.pages.checkout :as checkout]
     [giant-bomb.pages.games :as games]
     [giant-bomb.pages.home :as home]
