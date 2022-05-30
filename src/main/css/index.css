@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+
+@layer base {
+
+  body {
+    @apply bg-gray-100 dark:bg-gray-600;
+  }
+
+  *:focus {
+   @apply outline-0;
+  }
+
+}
