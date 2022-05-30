@@ -1,0 +1,19 @@
+{:name         com.gravie/giant-bomb
+ :version      "0.0.{{ git/commits-count }}{{ version/pre-release }}"
+ :description  "The Giant Bomb Client."
+ :license      "MIT"
+ :author       "Ilshat Sultanov <ilshat@sultanov.team>"
+ :contributors [{:name  "Ilshat Sultanov"
+                 :email "ilshat@sultanov.team"
+                 :url   "https://github.com/just-sultanov"}]
+ :homepage     "https://github.com/just-sultanov/giant-bomb#readme"
+ :repository   {:url "https://github.com/just-sultanov/giant-bomb"}
+ :bugs         {:url "https://github.com/just-sultanov/giant-bomb/issues"}
+ :keywords     [:clojure :clojurescript :giant-bomb :reagent :shadow-cljs]
+
+ :build        {:src-dirs      ["src/main/clojure"]
+                :resource-dirs ["src/main/resources"]}
+
+ :metadata     {:build/created-at "{{ build/created-at }}"
+                :git/branch       "{{ git/branch }}"
+                :git/sha          "{{ git/sha }}"}}
