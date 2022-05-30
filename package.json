@@ -1,6 +1,6 @@
 {
   "name": "@com.gravie/giant-bomb",
-  "version": "0.0.21",
+  "version": "0.0.27",
   "description": "The Giant Bomb Client",
   "license": "MIT",
   "author": "Ilshat Sultanov <ilshat@sultanov.team>",
