@@ -1,6 +1,7 @@
 (ns giant-bomb.pages.root
   (:require
     [giant-bomb.components :as components]
+    [giant-bomb.helpers.string :as str]
     [giant-bomb.pages.checkout :as checkout]
     [giant-bomb.pages.games :as games]
     [giant-bomb.pages.home :as home]
@@ -58,7 +59,7 @@
 
 (defn- navbar
   []
-  [:div.max-w-8xl.mx-auto.px-3.bg-white.dark:bg-gray-800.shadow-md
+  [:header.w-screen.mx-auto.px-3.bg-white.dark:bg-gray-800.shadow-md.absolute.top-0.left-0.z-10
    [:div.flex.justify-between.items-center.p-6.space-x-10
     [logotype]
     [navbar-links]
@@ -74,16 +75,19 @@
                      #":page/checkout.*" checkout/page
                      #":page/search.*" search/page
                      not-found/page)]
-    [:main.max-w-7xl.mx-auto.p-10
+    [:main.relative
      [page route-name]]))
 
 
 (defn- build-info
   []
   (when-some [info @(rf/subscribe [:app/build-info])]
-    [:div.absolute.bottom-4.right-4
-     [:a.text-violet-600.hover:text-violet-800.dark:text-violet-300.dark:hover:text-violet-400 {:href (:homepage info), :target "_blank"}
-      [:span.text-sm (:version info)]]]))
+    [:footer.absolute.bottom-2.right-2.z-10
+     [:a.inline-flex.justify-center.items-center.gap-1.text-violet-600.hover:text-violet-800.dark:text-violet-300.dark:hover:text-violet-400
+      {:href (:homepage info), :target "_blank"}
+      [:i.fa-brands.fa-github]
+      [:span.text-sm (str/format "v%s@%s" (:version info) (get-in info [:metadata :git/sha]))]]]))
+
 
 
 (defn page
@@ -92,7 +96,7 @@
   (if-not @(rf/subscribe [:app/initialized?])
     [:div.w-screen.h-screen.flex.justify-center.justify-items-center.content-center.items-center.gap-2
      [components/loading-spinner "Loading..."]]
-    [:div.relative.h-screen
+    [:div.static.h-screen
      [navbar]
      [main]
      [build-info]]))
