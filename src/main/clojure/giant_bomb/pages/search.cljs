@@ -3,4 +3,5 @@
 
 (defn page
   []
-  [:h1 "Search page"])
+  [:div.max-w-7xl.mx-auto.mt-32.p-10
+   [:h1 "Search page"]])
