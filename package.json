@@ -1,6 +1,6 @@
 {
   "name": "@com.gravie/giant-bomb",
-  "version": "0.0.35",
+  "version": "0.0.40",
   "description": "The Giant Bomb Client",
   "license": "MIT",
   "author": "Ilshat Sultanov <ilshat@sultanov.team>",
@@ -51,16 +51,16 @@
     "cross-env": "^7.0.3",
     "cssnano": "^5.1.10",
     "highlight.js": "11.5.1",
-    "http-server": "^14.1.0",
+    "http-server": "^14.1.1",
     "karma": "^6.3.20",
     "karma-chrome-launcher": "^3.1.1",
     "karma-cljs-test": "^0.1.0",
-    "npm-check-updates": "^13.0.3",
+    "npm-check-updates": "^13.0.4",
     "postcss": "^8.4.14",
     "postcss-cli": "^9.1.0",
     "postcss-import": "^14.1.0",
     "prettier": "^2.6.2",
-    "shadow-cljs": "^2.19.0",
+    "shadow-cljs": "^2.19.1",
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
