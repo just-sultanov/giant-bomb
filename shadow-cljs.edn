@@ -2,8 +2,10 @@
 
  :nrepl          {:init-ns user}
 
- :dev-http       {3000 "public/"
-                  3001 "public/test/"}
+ :dev-http       {3000 {:root      "public"
+                        :proxy-url "https://www.giantbomb.com"}
+                  3001 {:root      "public/test"
+                        :proxy-url "https://www.giantbomb.com"}}
 
  :build-defaults {:closure-defines  {goog.DEBUG             true
                                      giant-bomb.env/api-url #shadow/env "GIANT_BOMB_API_URL"
@@ -16,15 +18,18 @@
                          :modules    {:app {:init-fn giant-bomb.core/-main}}
                          :devtools   {:preloads [devtools.preload day8.re-frame-10x.preload]}
                          :dev        {:compiler-options {:closure-defines {re-frame.trace/trace-enabled?        true
+                                                                           day8.re-frame-10x/debug?             true
                                                                            day8.re-frame.tracing/trace-enabled? true
                                                                            giant-bomb.env/mode                  "develop"
-                                                                           giant-bomb.env/logger-level          "trace"}}}
-                         :release    {}}
+                                                                           giant-bomb.env/logger-level          "trace"}}
+                                      :external-config  {:devtools/config {:features-to-install [:formatters :hints]}}}
+                         :release    {:build-options {:ns-aliases {day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}
 
                   :test {:target   :browser-test
                          :test-dir "public/test"
                          :devtools {}
                          :dev      {:compiler-options {:closure-defines {re-frame.trace/trace-enabled?        true
+                                                                         day8.re-frame-10x/debug?             true
                                                                          day8.re-frame.tracing/trace-enabled? true
                                                                          giant-bomb.env/mode                  "develop"
                                                                          giant-bomb.env/logger-level          "trace"}}}}

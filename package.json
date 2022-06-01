@@ -40,7 +40,7 @@
     "repl": "concurrently --kill-others --names \"assets,shadow\" \"npm run assets:watch\" \"npm run shadow:watch\"",
     "test": "npm run assets:build && npm run test:build && npm run test:run",
     "build": "npm run shadow:build && npm run assets:build",
-    "server": "npx http-server --port 3000",
+    "server": "npx http-server --port 3000 --cors --proxy https://www.giantbomb.com",
     "outdated": "clojure -M:nop:outdated; npx ncu",
     "outdated:upgrade": "clojure -M:nop:outdated:outdated/upgrade; npx ncu -u && npm i",
     "setup": "npm i"
