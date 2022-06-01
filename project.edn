@@ -1,6 +1,6 @@
 {:name         com.gravie/giant-bomb
  :version      "0.0.{{ git/commits-count }}{{ version/pre-release }}"
- :description  "The Giant Bomb Client."
+ :description  "A test assignment using the Giant Bomb API"
  :license      "MIT"
  :author       "Ilshat Sultanov <ilshat@sultanov.team>"
  :contributors [{:name  "Ilshat Sultanov"
