@@ -12,9 +12,17 @@
 (def routes
   [""
    ["/" {:name :page/home, :private false}]
-   ["/games" {:name :page/games, :private false}]
    ["/search" {:name :page/search, :private false}]
-   ["/checkout" {:name :page/checkout, :private false}]])
+   ["/checkout" {:name :page/checkout, :private false}]
+   ["/games"
+    {:name        :page/games
+     :private     false
+     :controllers [{:start #(rf/dispatch [:api/fetch-games])}]}]
+   ["/game/:id"
+    {:name        :page/game
+     :private     false
+     :controllers [{:parameters {:path  [:id]}
+                    :start #(rf/dispatch [:api/fetch-game (get-in % [:path :id])])}]}]])
 
 
 (def router

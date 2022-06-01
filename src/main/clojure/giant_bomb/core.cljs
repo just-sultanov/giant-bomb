@@ -1,5 +1,6 @@
 (ns giant-bomb.core
   (:require
+    [giant-bomb.api :as api]
     [giant-bomb.db :as db]
     [giant-bomb.logger :as log]
     [giant-bomb.pages.root :as root]
@@ -15,10 +16,11 @@
   (* x x))
 
 
-(defn setup-tools
-  "Setup tools."
+(defn init!
+  "Initialize services."
   []
-  (log/init!))
+  (log/init!)
+  (api/init!))
 
 
 (defn mount-root
@@ -35,6 +37,6 @@
   "Application entry point."
   {:export true}
   [& _args]
-  (setup-tools)
+  (init!)
   (rf/dispatch-sync [::db/init])
   (mount-root))

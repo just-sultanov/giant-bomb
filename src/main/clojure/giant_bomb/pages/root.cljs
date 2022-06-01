@@ -3,6 +3,7 @@
     [giant-bomb.components :as components]
     [giant-bomb.helpers.string :as str]
     [giant-bomb.pages.checkout :as checkout]
+    [giant-bomb.pages.game :as game]
     [giant-bomb.pages.games :as games]
     [giant-bomb.pages.home :as home]
     [giant-bomb.pages.not-found :as not-found]
@@ -71,9 +72,10 @@
   (let [route-name @(rf/subscribe [:navigation/route-name])
         page       (condp re-matches (str route-name)
                      #":page/home.*" home/page
-                     #":page/games.*" games/page
-                     #":page/checkout.*" checkout/page
                      #":page/search.*" search/page
+                     #":page/checkout.*" checkout/page
+                     #":page/games.*" games/page
+                     #":page/game.*" game/page
                      not-found/page)]
     [:main.relative
      [page route-name]]))

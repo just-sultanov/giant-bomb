@@ -34,7 +34,7 @@
         ;; if route is private and user is not authenticated
         (and private? (not authenticated?))
         {:navigation/redirect {:route-name :page/sign-in}
-         ;; FIXME: [2022-02-15, ilshat@sultanov.team] Add a translator and uncomment the code below
+         ;; FIXME: [2022-05-31, ilshat@sultanov.team] Add a translator and uncomment the code below
          ;; :notification        {:level           :error
          ;;                       :i18n/translator (get-in db [:i18n :translator])
          ;;                       :i18n/key        :auth/unauthorized}
