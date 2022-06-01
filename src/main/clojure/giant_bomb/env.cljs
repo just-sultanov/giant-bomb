@@ -10,7 +10,6 @@
 (goog-define logger-level "info")
 (goog-define default-language "en")
 
-(goog-define api-url "N/A")
 (goog-define api-key "N/A")
 
 

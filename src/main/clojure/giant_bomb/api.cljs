@@ -68,8 +68,8 @@
   {:arglists '([{:as request :keys [resource id params on-success on-failure]}])}
   [{:as request :keys [resource id params on-failure]}]
   (let [url  (if id
-               (str/format "%s/%s/%s/" env/api-url (name resource) (name id))
-               (str/format "%s/%s/" env/api-url (name resource)))
+               (str/format "/api/%s/%s/" (name resource) (name id))
+               (str/format "/api/%s/" (name resource)))
         opts {:query-params (merge {:api_key env/api-key :format "json"} params)
               :accept       :json
               :content-type :json}]
