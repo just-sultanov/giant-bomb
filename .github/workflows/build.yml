@@ -76,7 +76,6 @@ jobs:
 
       - name: Setup environment variables
         run: >-
-          echo 'GIANT_BOMB_API_URL=${{ secrets.GIANT_BOMB_API_URL }}' >> $GITHUB_ENV;
           echo 'GIANT_BOMB_API_KEY=${{ secrets.GIANT_BOMB_API_KEY }}' >> $GITHUB_ENV;
 
       - name: Setup openjdk
@@ -158,6 +157,11 @@ jobs:
           cli: latest
           bb: latest
 
+      - name: Setup doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
       - name: Cache deps
         uses: actions/cache@v3
         with:
@@ -179,5 +183,8 @@ jobs:
       - name: Show project info
         run: bb project
 
-      - name: Run build app
+      - name: Build app
         run: bb build
+
+      - name: Build docker image
+        run: bb image:build
