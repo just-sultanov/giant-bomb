@@ -1,19 +1,21 @@
 {:paths   ["src/main/clojure" "src/main/resources"]
 
- :deps    {org.clojure/clojure        {:mvn/version "1.11.1"}
-           org.clojure/clojurescript  {:mvn/version "1.11.54"}
-           applied-science/js-interop {:mvn/version "0.3.3"}
-           cljs-bean/cljs-bean        {:mvn/version "1.8.0"}
-           com.cognitect/transit-cljs {:mvn/version "0.8.269"}
-           com.lambdaisland/glogi     {:mvn/version "1.1.144"}
-           io.lazy-cat/tenet          {:mvn/version "1.0.67"}
-           metosin/malli              {:mvn/version "0.8.4"}
-           metosin/reitit             {:mvn/version "0.5.18"}
-           re-frame/re-frame          {:mvn/version "1.2.0"}
-           reagent/reagent            {:mvn/version "1.1.1"
-                                       :exclusions  [cljsjs/react
-                                                     cljsjs/react-dom
-                                                     cljsjs/react-dom-server]}}
+ :deps    {org.clojure/clojure         {:mvn/version "1.11.1"}
+           org.clojure/clojurescript   {:mvn/version "1.11.54"}
+           applied-science/js-interop  {:mvn/version "0.3.3"}
+           cljs-bean/cljs-bean         {:mvn/version "1.8.0"}
+           com.cognitect/transit-cljs  {:mvn/version "0.8.269"}
+           com.lambdaisland/glogi      {:mvn/version "1.1.144"}
+           lambdaisland/fetch          {:mvn/version "1.0.41"}
+           kitchen-async/kitchen-async {:mvn/version "0.1.0-SNAPSHOT"}
+           io.lazy-cat/tenet           {:mvn/version "1.0.67"}
+           metosin/malli               {:mvn/version "0.8.4"}
+           metosin/reitit              {:mvn/version "0.5.18"}
+           re-frame/re-frame           {:mvn/version "1.2.0"}
+           reagent/reagent             {:mvn/version "1.1.1"
+                                        :exclusions  [cljsjs/react
+                                                      cljsjs/react-dom
+                                                      cljsjs/react-dom-server]}}
 
  :aliases {:develop          {:extra-paths ["src/develop/clojure" "src/develop/resources"]
                               :extra-deps  {binaryage/devtools         {:mvn/version "1.0.6"}
