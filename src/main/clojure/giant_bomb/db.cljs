@@ -38,7 +38,7 @@
 
 (rf/reg-event-db
   :app/initialized
-  (fn [db _]
+  (fn-traced [db _]
     (assoc-in db [:app :initialized?] true)))
 
 
@@ -58,7 +58,7 @@
 
 (rf/reg-event-fx
   :set-readiness
-  (fn [{db :db} [_ key state]]
+  (fn-traced [{db :db} [_ key state]]
     (case state
       :ready {:db             (assoc-in db [:app :readiness key] state)
               :dispatch-later [{:ms 1500, :dispatch [:set-readiness key nil]}]}
@@ -78,7 +78,7 @@
 
 (rf/reg-fx
   :app/set-theme
-  (fn-traced [next-theme]
+  (fn [next-theme]
     (let [previous-theme (toggle-theme next-theme)]
       (when previous-theme
         (.remove (.. js/document -documentElement -classList) (name previous-theme)))
@@ -107,6 +107,8 @@
   (fn [db]
     (get-in db [:app :theme] system-theme)))
 
+
+;; Build info
 
 (rf/reg-sub
   :app/build-info
