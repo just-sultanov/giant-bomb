@@ -14,6 +14,7 @@
 (goog-define api-key "N/A")
 
 
+;; TODO: [2022-06-01, ilshat@sultanov.team] Rewrite using the shadow-cljs inject hooks
 (def build-info
   (->> "com/gravie/giant-bomb/build.edn"
        (resource/slurp)
