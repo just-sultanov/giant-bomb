@@ -60,7 +60,6 @@ jobs:
 
       - name: Setup environment variables
         run: >-
-          echo 'GIANT_BOMB_API_URL=${{ secrets.GIANT_BOMB_API_URL }}' >> $GITHUB_ENV;
           echo 'GIANT_BOMB_API_KEY=${{ secrets.GIANT_BOMB_API_KEY }}' >> $GITHUB_ENV;
 
       - name: Setup openjdk
@@ -113,7 +112,6 @@ jobs:
 
       - name: Setup environment variables
         run: >-
-          echo 'GIANT_BOMB_API_URL=${{ secrets.GIANT_BOMB_API_URL }}' >> $GITHUB_ENV;
           echo 'GIANT_BOMB_API_KEY=${{ secrets.GIANT_BOMB_API_KEY }}' >> $GITHUB_ENV;
 
       - name: Setup openjdk
@@ -134,6 +132,11 @@ jobs:
         with:
           cli: latest
           bb: latest
+
+      - name: Setup doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
       - name: Cache deps
         uses: actions/cache@v3
@@ -156,11 +159,11 @@ jobs:
       - name: Show project info
         run: bb project
 
-      - name: Run build app
+      - name: Build app
         run: bb build
 
-      - name: Publish to Github Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+      - name: Build docker image
+        run: bb image:build
+
+      - name: Push docker image
+        run: bb image:push
