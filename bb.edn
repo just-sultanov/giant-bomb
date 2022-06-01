@@ -10,7 +10,10 @@
 
   :init            (do
                      (def -project (project/read-project))
-                     (def -version (:version -project)))
+                     (def -version (:version -project))
+                     (def -image "registry.digitalocean.com/sultanov-team/giant-bomb")
+                     (def -image-tag (format "%s:%s" -image -version))
+                     (def -image-latest-tag (format "%s:latest" -image)))
 
   :enter           (let [{:keys [doc print-doc?]
                           :or   {print-doc? true}} (current-task)]
@@ -69,4 +72,11 @@
                     :task    (shell "npm run build")}
 
   server           {:doc  "Run http server"
-                    :task (shell "npm run server")}}}
+                    :task (shell "npm run server")}
+
+  image:build      {:doc "Build docker image"
+                    :task (shell (format "docker build -t %s -t %s ." -image-tag -image-latest-tag))}
+
+  image:push       {:doc "Publish docker image"
+                    :task (doseq [tag [-image-tag -image-latest-tag]]
+                            (shell (format "docker push %s" tag)))}}}
