@@ -135,7 +135,6 @@ jobs:
 
       - name: Setup environment variables
         run: >-
-          echo 'GIANT_BOMB_API_URL=${{ secrets.GIANT_BOMB_API_URL }}' >> $GITHUB_ENV;
           echo 'GIANT_BOMB_API_KEY=${{ secrets.GIANT_BOMB_API_KEY }}' >> $GITHUB_ENV;
 
       - name: Setup openjdk
