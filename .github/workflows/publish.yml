@@ -165,5 +165,8 @@ jobs:
       - name: Build docker image
         run: bb image:build
 
+      - name: Log in to the DigitalOcean container registry
+        run: doctl registry login --expiry-seconds 600
+
       - name: Push docker image
         run: bb image:push
