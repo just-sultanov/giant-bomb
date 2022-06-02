@@ -1,0 +1,24 @@
+domains:
+- domain: giant-bomb.sultanov.team
+  type: PRIMARY
+  zone: sultanov.team
+name: giant-bomb
+region: fra
+services:
+- health_check:
+    failure_threshold: 5
+    http_path: /
+    initial_delay_seconds: 10
+    period_seconds: 3
+    success_threshold: 3
+    timeout_seconds: 5
+  http_port: 80
+  image:
+    registry_type: DOCR
+    repository: giant-bomb
+    tag: latest
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: giant-bomb
+  routes:
+  - path: /
