@@ -1,7 +1,6 @@
 (ns giant-bomb.pages.root
   (:require
     [giant-bomb.components :as components]
-    [giant-bomb.helpers.string :as str]
     [giant-bomb.pages.checkout :as checkout]
     [giant-bomb.pages.game :as game]
     [giant-bomb.pages.games :as games]
@@ -81,17 +80,6 @@
      [page route-name]]))
 
 
-(defn- build-info
-  []
-  (when-some [info @(rf/subscribe [:app/build-info])]
-    [:footer.absolute.bottom-2.right-2.z-10
-     [:a.inline-flex.justify-center.items-center.gap-1.text-violet-600.hover:text-violet-800.dark:text-violet-300.dark:hover:text-violet-400
-      {:href (:homepage info), :target "_blank"}
-      [:i.fa-brands.fa-github]
-      [:span.text-sm (str/format "v%s@%s" (:version info) (get-in info [:metadata :git/sha]))]]]))
-
-
-
 (defn page
   "Root page."
   []
@@ -100,5 +88,4 @@
      [components/loading-spinner "Loading..."]]
     [:div.static.h-screen
      [navbar]
-     [main]
-     [build-info]]))
+     [main]]))
