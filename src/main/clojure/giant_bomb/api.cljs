@@ -114,4 +114,4 @@
         params (-> res'
                    (select-keys [:number_of_total_results :number_of_page_results :limit :offset])
                    (set/rename-keys {:number_of_total_results :total, :number_of_page_results :page}))]
-    {:data data, :params params}))
+    (with-meta data {:params params})))
