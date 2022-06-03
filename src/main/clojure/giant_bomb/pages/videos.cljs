@@ -20,7 +20,7 @@
 (defn video-image
   [image]
   [:img.w-full.h-full.object-center.object-cover
-   {:src (:super_url image) :alt (:medium_url image)}])
+   {:src (:super_url image) :alt "Video image"}])
 
 
 
