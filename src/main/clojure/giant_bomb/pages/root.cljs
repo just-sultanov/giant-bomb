@@ -7,6 +7,8 @@
     [giant-bomb.pages.home :as home]
     [giant-bomb.pages.not-found :as not-found]
     [giant-bomb.pages.search :as search]
+    [giant-bomb.pages.video :as video]
+    [giant-bomb.pages.videos :as videos]
     [heroicons.outline :as icons.outline]
     [re-frame.core :as rf]))
 
@@ -26,6 +28,7 @@
 (def navbar-items
   [{:label "Home" :href :page/home :icon icons.outline/home-icon}
    {:label "Games" :href :page/games :icon icons.outline/chip-icon}
+   {:label "Videos" :href :page/videos :icon icons.outline/video-camera-icon}
    {:label "Search" :href :page/search :icon icons.outline/search-icon}
    {:label "Checkout" :href :page/checkout :icon icons.outline/shopping-bag-icon}])
 
@@ -75,6 +78,8 @@
                      #":page/checkout.*" checkout/page
                      #":page/games.*" games/page
                      #":page/game.*" game/page
+                     #":page/videos.*" videos/page
+                     #":page/video.*" video/page
                      not-found/page)]
     [:main.relative
      [page route-name]]))

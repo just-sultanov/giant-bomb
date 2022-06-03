@@ -22,7 +22,16 @@
     {:name        :page/game
      :private     false
      :controllers [{:parameters {:path  [:id]}
-                    :start #(rf/dispatch [:api/fetch-game (get-in % [:path :id])])}]}]])
+                    :start #(rf/dispatch [:api/fetch-game (get-in % [:path :id])])}]}]
+   ["/videos"
+    {:name        :page/videos
+     :private     false
+     :controllers [{:start #(rf/dispatch [:api/fetch-videos])}]}]
+   ["/video/:id"
+    {:name        :page/video
+     :private     false
+     :controllers [{:parameters {:path  [:id]}
+                    :start #(rf/dispatch [:api/fetch-video (get-in % [:path :id])])}]}]])
 
 
 (def router
