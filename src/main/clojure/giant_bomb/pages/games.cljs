@@ -32,20 +32,20 @@
 
 (defn game-platforms
   [platforms]
-  [:div.mt-4.gap-2.px-2.pb-2
+  [:div.mt-4.gap-2.px-4.pb-4
    (into [:ul.flex.flex-wrap.gap-2]
          (for [{:keys [abbreviation]} platforms]
-           [:li.rounded-md.bg-gray-200.p-1
-            [:p.text-gray-500 {:class "text-[10px]"} abbreviation]]))])
+           [:li.rounded-sm.bg-gray-200.px-2
+            [:p.text-gray-600 {:class "text-[10px]"} abbreviation]]))])
 
 
 (defn game-card
   [{:as game :keys [image platforms deck number_of_user_reviews]}]
   [:div.group.relative.bg-white.rounded-md.shadow-md
-   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-95.lg:h-80.lg:aspect-none
+   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80.lg:aspect-none
     [game-image image]
     [game-rating number_of_user_reviews]]
-   [:div.mt-4.flex.justify-between.gap-2.px-2.pb-2
+   [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
      [:h3.text-sm.text-gray-700
       [game-title game]]
