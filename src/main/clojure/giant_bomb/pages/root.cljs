@@ -29,8 +29,8 @@
   [{:label "Home" :href :page/home :icon icons.outline/home-icon}
    {:label "Games" :href :page/games :icon icons.outline/chip-icon}
    {:label "Videos" :href :page/videos :icon icons.outline/video-camera-icon}
-   {:label "Search" :href :page/search :icon icons.outline/search-icon}
-   {:label "Checkout" :href :page/checkout :icon icons.outline/shopping-bag-icon}])
+   {:label "Checkout" :href :page/checkout :icon icons.outline/shopping-bag-icon}
+   {:label "Search" :href :page/search :icon icons.outline/search-icon}])
 
 
 (defn- navbar-links
