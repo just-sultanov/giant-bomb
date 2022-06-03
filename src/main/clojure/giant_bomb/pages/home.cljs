@@ -13,8 +13,9 @@
 
 (defn- hero
   []
-  [:div.relative.z-10.p-10.flex.flex-col.items-center.gap-2.text-white
-   [:span.text-4xl "Welcome to the world of video games"]
+  [:div.relative.z-10.p-10.flex.flex-col.items-center.gap-3.text-white
+   [:h1.p-2.font-extrabold.text-5xl.text-wrap
+    "Welcome to the world of video games"]
    [:div.flex-1
     [:a.ml-8.whitespace-nowrap.inline-flex.items-center.justify-center.px-4.py-2.border.border-transparent.rounded-md.shadow-sm.text-2xl.bg-violet-600.hover:bg-violet-700
      {:href @(rf/subscribe [:href :page/games])}
