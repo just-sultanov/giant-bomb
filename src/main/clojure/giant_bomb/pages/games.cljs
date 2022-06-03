@@ -44,7 +44,7 @@
 (defn game-card
   [{:as game :keys [image platforms deck number_of_user_reviews]}]
   [:div.group.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
-   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80.lg:aspect-none
+   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80
     [game-image image]
     [game-rating number_of_user_reviews]]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
@@ -68,10 +68,10 @@
   [games]
   (when (seq games)
     (let [{:keys [limit offset total]} (:params (meta games))
-          previous-offset (- offset limit)
+          previous-offset    (- offset limit)
           previous-disabled? (neg? previous-offset)
-          next-offset     (+ limit offset)
-          next-disabled? (<= total next-offset)]
+          next-offset        (+ limit offset)
+          next-disabled?     (<= total next-offset)]
       [:div.flex.justify-between
        [:button.bg-white.dark:bg-gray-500.rounded-sm.shadow-md.p-2
         {:type     "button"
@@ -94,8 +94,10 @@
      [games-controls games]
      [:div.mt-4
       [components/loader {:state      readiness
-                          :on-loading [components/loading-spinner "Loading..."]
-                          :on-failed  [components/failed-spinner "Something went wrong..."]
+                          :on-loading [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                       [components/loading-spinner "Loading..."]]
+                          :on-failed  [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                       [components/failed-spinner "Something went wrong..."]]
                           :on-idle    [games-cards games]}]]]))
 
 

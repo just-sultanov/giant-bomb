@@ -46,7 +46,7 @@
 (defn video-card
   [{:as video :keys [image video_categories associations deck]}]
   [:div.group.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
-   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80.lg:aspect-none
+   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80
     [video-image image]]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
@@ -71,10 +71,10 @@
   [videos]
   (when (seq videos)
     (let [{:keys [limit offset total]} (:params (meta videos))
-          previous-offset (- offset limit)
+          previous-offset    (- offset limit)
           previous-disabled? (neg? previous-offset)
-          next-offset     (+ limit offset)
-          next-disabled? (<= total next-offset)]
+          next-offset        (+ limit offset)
+          next-disabled?     (<= total next-offset)]
       [:div.flex.justify-between
        [:button.bg-white.dark:bg-gray-500.rounded-sm.shadow-md.p-2
         {:type     "button"
@@ -92,7 +92,7 @@
 (defn videos-list
   []
   (let [readiness @(rf/subscribe [:videos/readiness])
-        videos     @(rf/subscribe [:videos])]
+        videos    @(rf/subscribe [:videos])]
     ^{:keys readiness}
     [:div
      [videos-controls videos]

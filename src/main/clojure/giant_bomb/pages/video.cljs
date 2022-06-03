@@ -33,10 +33,10 @@
      [:div.mt-4.lg:mt-0.lg:row-span-3
       [:h2.sr-only "Video details"]
       [:div.aspect-w-3.aspect-h-4.rounded-lg.overflow-hidden.lg:block
-       [:iframe {:src             embed_player
-                 :frameborder     0
-                 :allow           "fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                 :allowfullscreen true}]]]
+       [:iframe {:src               embed_player
+                 :frame-border      0
+                 :allow             "fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                 :allow-full-screen true}]]]
      [:div.lg:col-span-2.lg:border-l.lg:border-gray-200.lg:pl-8.sm:mt-4
       [:div.flex.justify-between.content-center.items-center
        [:h1.text-2xl.font-extrabold.tracking-tight.text-gray-900.sm:text-3xl name]
@@ -72,9 +72,11 @@
     ^{:keys readiness}
     [:div.mt-4
      [components/loader {:state      readiness
-                         :on-loading [components/loading-spinner "Loading..."]
-                         :on-failed  [components/failed-spinner "Something went wrong..."]
-                         :on-idle    [video-card video]}]]))
+                         :on-loading [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                      [components/loading-spinner "Loading..."]]
+                         :on-failed  [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                      [components/failed-spinner "Something went wrong..."]]
+                         :on-idle    (when video [video-card video])}]]))
 
 
 (defn page

@@ -38,7 +38,7 @@
       [:div.flex.justify-between.content-center.items-center
        [:h1.text-2xl.font-extrabold.tracking-tight.text-gray-900.sm:text-3xl name]
        [:button.bg-green-500.hover:bg-green-400.rounded-md.shadow-md.px-4.py-2.inline-flex.items-center.gap-2.text-white
-        {:type     "button"}
+        {:type "button"}
         [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
         [:span.text-md "Add to cart"]]]
       [:div.py-10.lg:pt-6.lg:pb-16.lg:col-start-1.lg:col-span-2
@@ -78,7 +78,7 @@
      [components/loader {:state      readiness
                          :on-loading [components/loading-spinner "Loading..."]
                          :on-failed  [components/failed-spinner "Something went wrong..."]
-                         :on-idle    [game-card game]}]]))
+                         :on-idle    (when game [game-card game])}]]))
 
 
 (defn page
