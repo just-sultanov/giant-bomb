@@ -13,7 +13,7 @@
   [""
    ["/" {:name :page/home, :private false}]
    ["/search" {:name :page/search, :private false}]
-   ["/checkout" {:name :page/checkout, :private false}]
+   ["/cart" {:name :page/cart, :private false}]
    ["/games"
     ["/"
      {:name        :page/games

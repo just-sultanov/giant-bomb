@@ -1,7 +1,7 @@
 (ns giant-bomb.pages.root
   (:require
     [giant-bomb.components :as components]
-    [giant-bomb.pages.checkout :as checkout]
+    [giant-bomb.pages.cart :as cart]
     [giant-bomb.pages.game :as game]
     [giant-bomb.pages.games :as games]
     [giant-bomb.pages.home :as home]
@@ -29,7 +29,7 @@
   [{:label "Home" :href :page/home :icon icons.outline/home-icon}
    {:label "Games" :href :page/games :icon icons.outline/chip-icon}
    {:label "Videos" :href :page/videos :icon icons.outline/video-camera-icon}
-   {:label "Checkout" :href :page/checkout :icon icons.outline/shopping-bag-icon}
+   {:label "Cart" :href :page/cart :icon icons.outline/shopping-cart-icon}
    {:label "Search" :href :page/search :icon icons.outline/search-icon}])
 
 
@@ -75,7 +75,7 @@
         page       (condp re-matches (str route-name)
                      #":page/home.*" home/page
                      #":page/search.*" search/page
-                     #":page/checkout.*" checkout/page
+                     #":page/cart.*" cart/page
                      #":page/games.*" games/page
                      #":page/game.*" game/page
                      #":page/videos.*" videos/page
