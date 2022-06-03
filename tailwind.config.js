@@ -5,12 +5,15 @@ module.exports = {
       : ["./public/**/*.html", "./public/js/app.js", "./public/js/cljs-runtime/*.js"],
   theme: {
     extend: {
-      backgroundImage: {},
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr',
+      },
     },
   },
   darkMode: "class",
   variants: {},
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };
