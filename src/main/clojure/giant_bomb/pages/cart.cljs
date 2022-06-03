@@ -5,6 +5,31 @@
     [re-frame.core :as rf]))
 
 
+;; FIXME: [2022-06-04, ilshat@sultanov.team] Known issue: You cannot add games from the different pages
+;; The list of games/videos is always overwritten when new data is received
+;; We need to add caching and normal pagination to improve performance and fix this issue
+
+(defn cart-item
+  [guid]
+  (let [{:keys [name image deck]} @(rf/subscribe [:cart/game guid])]
+    [:li.flex.py-6
+     [:div.h-24.w-24.flex-shrink-0.overflow-hidden.rounded-md.border.border-gray-200
+      [:div.aspect-w-3.aspect-h-4.rounded-lg.overflow-hidden.lg:block
+       [:img.w-full.h-full.object-center.object-cover {:src (:super_url image) :alt "Game image"}]]]
+     [:div.ml-4.flex.flex-1.flex-col
+      [:div
+       [:div.flex.justify-between.text-base.font-medium.text-gray-900
+        [:h3 [:a {:href @(rf/subscribe [:href :page/game {:id guid}])} name]]]
+       [:p.mt-1.text-sm.text-wrap.text-gray-500 deck]]
+      [:div.flex.flex-1.items-end.justify-between.text-sm
+       [:div.flex
+        [:button.font-medium.text-indigo-600.hover:text-indigo-500
+         {:type     "button"
+          :on-click #(when (js/confirm "Are you sure?")
+                       (rf/dispatch [:cart/remove-item guid]))}
+         "Remove"]]]]]))
+
+
 (defn cart-items
   [cart]
   (let [n (count cart)]
@@ -19,24 +44,9 @@
           (if-not (seq cart)
             [:p.text-sm.text-wrap.text-gray-500 "Your shopping cart is empty"]
             (into [:ul.-my-6.divide-y.divide-gray-200 {:role "list"}
-                   (for [{:as game :keys [id guid name image deck]} cart]
-                     ^{:key id}
-                     [:li.flex.py-6
-                      [:div.h-24.w-24.flex-shrink-0.overflow-hidden.rounded-md.border.border-gray-200
-                       [:div.aspect-w-3.aspect-h-4.rounded-lg.overflow-hidden.lg:block
-                        [:img.w-full.h-full.object-center.object-cover {:src (:super_url image) :alt "Game image"}]]]
-                      [:div.ml-4.flex.flex-1.flex-col
-                       [:div
-                        [:div.flex.justify-between.text-base.font-medium.text-gray-900
-                         [:h3 [:a {:href @(rf/subscribe [:href :page/game {:id guid}])} name]]]
-                        [:p.mt-1.text-sm.text-wrap.text-gray-500 deck]]
-                       [:div.flex.flex-1.items-end.justify-between.text-sm
-                        [:div.flex
-                         [:button.font-medium.text-indigo-600.hover:text-indigo-500
-                          {:type     "button"
-                           :on-click #(when (js/confirm "Are you sure?")
-                                        (rf/dispatch [:cart/remove-item game]))}
-                          "Remove"]]]]])]))]]]
+                   (for [guid cart]
+                     ^{:key guid}
+                     [cart-item guid])]))]]]
        [:div.border-t.border-gray-200.py-6.px-4.sm:px-6
         (if-not (seq cart)
           [:div.flex.justify-center.text-center.text-md.text-gray-500.gap-2

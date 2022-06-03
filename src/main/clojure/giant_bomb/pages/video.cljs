@@ -69,7 +69,7 @@
   [id]
   (let [readiness @(rf/subscribe [:video/readiness id])
         video     @(rf/subscribe [:video id])]
-    ^{:keys readiness}
+    ^{:key readiness}
     [:div.mt-4
      [components/loader {:state      readiness
                          :on-loading [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2

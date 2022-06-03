@@ -41,26 +41,26 @@
 
 
 (defn game-cart
-  [game exists?]
-  [:div.gap-2.p-2
-   [:button.w-full.rounded-md.shadow-md.px-4.py-2.inline-flex.justify-center.items-center.gap-2.text-white
-    {:type     "button"
-     :class    (if exists? "bg-red-500 hover:bg-red-400" "bg-green-500 hover:bg-green-400")
-     :on-click #(if exists?
-                  (rf/dispatch [:cart/remove-item game])
-                  (rf/dispatch [:cart/add-item game]))}
-    [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
-    [:span.text-md (if exists? "Remove from Cart" "Add to Cart")]]])
+  [guid]
+  (let [exists? @(rf/subscribe [:cart/has-item? guid])]
+    [:div.gap-2.p-2
+     [:button.w-full.rounded-md.shadow-md.px-4.py-2.inline-flex.justify-center.items-center.gap-2.text-white
+      {:type     "button"
+       :class    (if exists? "bg-red-500 hover:bg-red-400" "bg-green-500 hover:bg-green-400")
+       :on-click #(if exists?
+                    (rf/dispatch [:cart/remove-item guid])
+                    (rf/dispatch [:cart/add-item guid]))}
+      [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
+      [:span.text-md (if exists? "Remove from Cart" "Add to Cart")]]]))
 
 
 (defn game-card
-  [cart {:as game :keys [id platforms deck number_of_user_reviews]}]
-  ^{:key id}
+  [{:as game :keys [guid platforms deck number_of_user_reviews]}]
   [:div.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
    [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.lg:h-80
     [game-image game]
     [game-rating number_of_user_reviews]]
-   [game-cart game (contains? cart game)]
+   [game-cart guid]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
      [:h3.text-sm.text-gray-700.dark:text-gray-200
@@ -72,11 +72,11 @@
 ;; FIXME: [2022-06-03, ilshat@sultanov.team] Add pagination and don't remove previous results from the db
 (defn games-cards
   [games]
-  (let [cart @(rf/subscribe [:cart])]
-    [:div.max-w-2xl.mx-auto.lg:max-w-7xl
-     (into [:div.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
-           (for [game games]
-             [game-card cart game]))]))
+  [:div.max-w-2xl.mx-auto.lg:max-w-7xl
+   (into [:div.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
+         (for [{:as game :keys [id]} games]
+           ^{:key id}
+           [game-card game]))])
 
 
 (defn games-controls
@@ -104,7 +104,7 @@
   []
   (let [readiness @(rf/subscribe [:games/readiness])
         games     @(rf/subscribe [:games])]
-    ^{:keys readiness}
+    ^{:key readiness}
     [:div
      [games-controls games]
      [:div.mt-4

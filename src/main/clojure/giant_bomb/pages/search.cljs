@@ -58,7 +58,7 @@
         readiness @(rf/subscribe [:search/readiness])
         query     @(rf/subscribe [:search/query])
         results   @(rf/subscribe [:search/results])]
-    ^{:keys readiness}
+    ^{:key readiness}
     [:div
      [search-input query]
      [:div.mt-4

@@ -93,7 +93,7 @@
   []
   (let [readiness @(rf/subscribe [:videos/readiness])
         videos    @(rf/subscribe [:videos])]
-    ^{:keys readiness}
+    ^{:key readiness}
     [:div
      [videos-controls videos]
      [:div.mt-4
