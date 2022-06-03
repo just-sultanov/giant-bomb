@@ -25,9 +25,8 @@
 
 (rf/reg-event-fx
   :api/fetch-game
-  (fn-traced [{db :db} [_ id params]]
-    {:db         (update db :game dissoc id)
-     :dispatch   [:set-readiness [:game id] :loading]
+  (fn-traced [_ [_ id params]]
+    {:dispatch   [:set-readiness [:game id] :loading]
      ::api/fetch {:id         id
                   :resource   :game
                   :params     params
