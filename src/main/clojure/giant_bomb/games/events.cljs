@@ -24,9 +24,8 @@
 
 (rf/reg-event-fx
   :api/fetch-games
-  (fn-traced [{db :db} [_ params]]
-    {:db         (dissoc db :games)
-     :dispatch   [:set-readiness :games :loading]
+  (fn-traced [_ [_ params]]
+    {:dispatch   [:set-readiness :games :loading]
      ::api/fetch {:resource   :games
                   :params     params
                   :on-success [:api/fetch-games->success]

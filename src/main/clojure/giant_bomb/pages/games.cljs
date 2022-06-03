@@ -2,6 +2,8 @@
   (:require
     [giant-bomb.components :as components]
     [giant-bomb.games.core]
+    [giant-bomb.helpers.string :as str]
+    [heroicons.outline :as icons.outline]
     [re-frame.core :as rf]))
 
 
@@ -62,16 +64,39 @@
            [game-card game]))])
 
 
+(defn games-controls
+  [games]
+  (when (seq games)
+    (let [{:keys [limit offset total]} (:params (meta games))
+          previous-offset (- offset limit)
+          previous-disabled? (neg? previous-offset)
+          next-offset     (+ limit offset)
+          next-disabled? (<= total next-offset)]
+      [:div.flex.justify-between
+       [:button.bg-white.dark:bg-gray-500.rounded-sm.shadow-md.p-2
+        {:type     "button"
+         :disabled previous-disabled?
+         :on-click #(rf/dispatch [:api/fetch-games {:limit limit, :offset previous-offset}])}
+        [icons.outline/chevron-left-icon {:class (str/format "w-6 h-6 %s" (if previous-disabled? "text-gray-200 dark:text-gray-600" "text-gray-500 dark:text-gray-200"))}]]
+       [:button.bg-white.dark:bg-gray-500.rounded-sm.shadow-md.p-2
+        {:type     "button"
+         :disabled next-disabled?
+         :on-click #(rf/dispatch [:api/fetch-games {:limit limit, :offset next-offset}])}
+        [icons.outline/chevron-right-icon {:class (str/format "w-6 h-6 %s" (if next-disabled? "text-gray-200 dark:text-gray-600" "text-gray-500 dark:text-gray-200"))}]]])))
+
+
 (defn games-list
   []
   (let [readiness @(rf/subscribe [:games/readiness])
         games     @(rf/subscribe [:games])]
     ^{:keys readiness}
     [:div
-     [components/loader {:state      readiness
-                         :on-loading [components/loading-spinner "Loading..."]
-                         :on-failed  [components/failed-spinner "Something went wrong..."]
-                         :on-idle    [games-cards games]}]]))
+     [games-controls games]
+     [:div.mt-4
+      [components/loader {:state      readiness
+                          :on-loading [components/loading-spinner "Loading..."]
+                          :on-failed  [components/failed-spinner "Something went wrong..."]
+                          :on-idle    [games-cards games]}]]]))
 
 
 (defn page

@@ -17,7 +17,7 @@
    ["/games"
     {:name        :page/games
      :private     false
-     :controllers [{:start #(rf/dispatch [:api/fetch-games])}]}]
+     :controllers [{:start #(rf/dispatch [:api/fetch-games {:limit 8}])}]}]
    ["/game/:id"
     {:name        :page/game
      :private     false
@@ -26,7 +26,7 @@
    ["/videos"
     {:name        :page/videos
      :private     false
-     :controllers [{:start #(rf/dispatch [:api/fetch-videos])}]}]
+     :controllers [{:start #(rf/dispatch [:api/fetch-videos {:limit 8}])}]}]
    ["/video/:id"
     {:name        :page/video
      :private     false

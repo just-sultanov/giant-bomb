@@ -24,9 +24,8 @@
 
 (rf/reg-event-fx
   :api/fetch-videos
-  (fn-traced [{db :db} [_ params]]
-    {:db         (dissoc db :videos)
-     :dispatch   [:set-readiness :videos :loading]
+  (fn-traced [_ [_ params]]
+    {:dispatch   [:set-readiness :videos :loading]
      ::api/fetch {:resource   :videos
                   :params     params
                   :on-success [:api/fetch-videos->success]
