@@ -60,7 +60,7 @@
 (defn videos-cards
   [videos]
   [:div.max-w-2xl.mx-auto.lg:max-w-7xl
-   (into [:div.mt-6.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
+   (into [:div.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
          (for [video videos]
            [video-card video]))])
 
@@ -81,6 +81,6 @@
 
 (defn page
   []
-  [:div.max-w-7xl.mx-auto.mt-32.p-10
+  [:div.max-w-7xl.mx-auto.mt-28.p-10
    [videos-list]])
 
