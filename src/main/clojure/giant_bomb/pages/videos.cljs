@@ -108,6 +108,6 @@
 
 (defn page
   []
-  [:div.max-w-7xl.mx-auto.mt-28.p-10
+  [:div.max-w-7xl.mx-auto.mt-24.p-10
    [videos-list]])
 
