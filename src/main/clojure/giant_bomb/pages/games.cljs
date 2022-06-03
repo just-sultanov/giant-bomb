@@ -13,7 +13,7 @@
      [:div.border.border-white.bg-gray-500.rounded-md.w-10.h-6.flex.justify-center.items-center
       [:span.text-xs.text-white expected_release_year]])
    [:span.absolute.inset-0 {:aria-hidden true}]
-   [:span.text-sm.font-medium.text-gray-900 name]])
+   [:span.text-sm.font-medium.text-gray-900.dark:text-gray-100 name]])
 
 
 (defn game-image
@@ -41,15 +41,15 @@
 
 (defn game-card
   [{:as game :keys [image platforms deck number_of_user_reviews]}]
-  [:div.group.relative.bg-white.rounded-md.shadow-md
+  [:div.group.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
    [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80.lg:aspect-none
     [game-image image]
     [game-rating number_of_user_reviews]]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
-     [:h3.text-sm.text-gray-700
+     [:h3.text-sm.text-gray-700.dark:text-gray-200
       [game-title game]]
-     [:p.mt-1.text-sm.text-gray-500.text-justify deck]]]
+     [:p.mt-1.text-sm.text-gray-500.dark:text-gray-200.text-justify deck]]]
    [game-platforms platforms]])
 
 

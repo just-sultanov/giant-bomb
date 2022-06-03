@@ -11,7 +11,7 @@
   [:a.inline-flex.justify-between.items-center.gap-2
    {:href @(rf/subscribe [:href :page/video {:id guid}])}
    [:span.absolute.inset-0 {:aria-hidden true}]
-   [:span.text-sm.font-medium.text-gray-900 name]])
+   [:span.text-sm.font-medium.text-gray-900.dark:text-gray-100 name]])
 
 
 
@@ -43,15 +43,14 @@
 
 (defn video-card
   [{:as video :keys [image video_categories associations deck]}]
-  (js/console.log :video video)
-  [:div.group.relative.bg-white.rounded-md.shadow-md
+  [:div.group.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
    [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80.lg:aspect-none
     [video-image image]]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
-     [:h3.text-sm.text-gray-700
+     [:h3.text-sm.text-gray-700.dark:text-gray-200
       [video-title video]]
-     [:p.mt-1.text-sm.text-gray-500.text-justify deck]]]
+     [:p.mt-1.text-sm.text-gray-500.dark:text-gray-200.text-justify deck]]]
    [video-categories video_categories]
    [video-associations associations]])
 
