@@ -31,7 +31,7 @@
 
 
 (defn search-results
-  [cart results]
+  [results]
   (into [:div]
         (for [[group items] (->> results
                                  (group-by :resource_type)
@@ -45,7 +45,7 @@
                  (for [{:as item :keys [guid]} items]
                    ^{:key [guid]}
                    (case group
-                     "game" [games/game-card cart item]
+                     "game" [games/game-card item]
                      "video" [videos/video-card item]
                      nil)))])))
 
@@ -54,8 +54,7 @@
 
 (defn search
   []
-  (let [cart      @(rf/subscribe [:cart])
-        readiness @(rf/subscribe [:search/readiness])
+  (let [readiness @(rf/subscribe [:search/readiness])
         query     @(rf/subscribe [:search/query])
         results   @(rf/subscribe [:search/results])]
     ^{:key readiness}
@@ -67,7 +66,7 @@
                                        [components/loading-spinner "Loading..."]]
                           :on-failed  [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
                                        [components/failed-spinner "Something went wrong..."]]
-                          :on-idle    [search-results cart results]}]]]))
+                          :on-idle    [search-results results]}]]]))
 
 
 (defn page
