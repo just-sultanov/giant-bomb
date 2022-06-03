@@ -8,20 +8,19 @@
 
 
 (defn game-title
-  [{:keys [guid name expected_release_year]}]
-  [:a.inline-flex.justify-between.items-center.gap-2
-   {:href @(rf/subscribe [:href :page/game {:id guid}])}
+  [{:keys [name expected_release_year]}]
+  [:div.inline-flex.justify-between.items-center.gap-2
    (when (pos? expected_release_year)
      [:div.border.border-white.bg-gray-500.rounded-md.w-10.h-6.flex.justify-center.items-center
       [:span.text-xs.text-white expected_release_year]])
-   [:span.absolute.inset-0 {:aria-hidden true}]
    [:span.text-sm.font-medium.text-gray-900.dark:text-gray-100 name]])
 
 
 (defn game-image
-  [image]
-  [:img.w-full.h-full.object-center.object-cover
-   {:src (:super_url image) :alt "Game image"}])
+  [{:keys [guid image]}]
+  [:a {:href @(rf/subscribe [:href :page/game {:id guid}])}
+   [:img.w-full.h-full.object-center.object-cover.hover:opacity-90
+    {:src (:super_url image) :alt "Game image"}]])
 
 
 (defn game-rating
@@ -41,12 +40,27 @@
             [:p.text-gray-600 {:class "text-[10px]"} abbreviation]]))])
 
 
+(defn game-cart
+  [game exists?]
+  [:div.gap-2.p-2
+   [:button.w-full.rounded-md.shadow-md.px-4.py-2.inline-flex.justify-center.items-center.gap-2.text-white
+    {:type     "button"
+     :class    (if exists? "bg-red-500 hover:bg-red-400" "bg-green-500 hover:bg-green-400")
+     :on-click #(if exists?
+                  (rf/dispatch [:cart/remove-item game])
+                  (rf/dispatch [:cart/add-item game]))}
+    [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
+    [:span.text-md (if exists? "Remove from Cart" "Add to Cart")]]])
+
+
 (defn game-card
-  [{:as game :keys [image platforms deck number_of_user_reviews]}]
-  [:div.group.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
-   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.group-hover:opacity-90.lg:h-80
-    [game-image image]
+  [cart {:as game :keys [id platforms deck number_of_user_reviews]}]
+  ^{:key id}
+  [:div.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
+   [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.lg:h-80
+    [game-image game]
     [game-rating number_of_user_reviews]]
+   [game-cart game (contains? cart game)]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
      [:h3.text-sm.text-gray-700.dark:text-gray-200
@@ -58,10 +72,11 @@
 ;; FIXME: [2022-06-03, ilshat@sultanov.team] Add pagination and don't remove previous results from the db
 (defn games-cards
   [games]
-  [:div.max-w-2xl.mx-auto.lg:max-w-7xl
-   (into [:div.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
-         (for [game games]
-           [game-card game]))])
+  (let [cart @(rf/subscribe [:cart])]
+    [:div.max-w-2xl.mx-auto.lg:max-w-7xl
+     (into [:div.grid.grid-cols-1.gap-y-12.gap-x-6.sm:grid-cols-2.lg:grid-cols-4.xl:gap-x-8]
+           (for [game games]
+             [game-card cart game]))]))
 
 
 (defn games-controls
