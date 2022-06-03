@@ -2,8 +2,7 @@
   (:require
     [cljs.pprint :as pprint]
     [giant-bomb.components :as components]
-    [giant-bomb.game.events]
-    [giant-bomb.game.subs]
+    [giant-bomb.game.core]
     [re-frame.core :as rf]))
 
 
