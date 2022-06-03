@@ -76,8 +76,10 @@
     ^{:keys readiness}
     [:div.mt-4
      [components/loader {:state      readiness
-                         :on-loading [components/loading-spinner "Loading..."]
-                         :on-failed  [components/failed-spinner "Something went wrong..."]
+                         :on-loading [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                      [components/loading-spinner "Loading..."]]
+                         :on-failed  [:div.flex.justify-center.justify-items-center.content-center.items-center.gap-2
+                                      [components/failed-spinner "Something went wrong..."]]
                          :on-idle    (when game [game-card game])}]]))
 
 
