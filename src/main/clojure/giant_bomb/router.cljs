@@ -15,23 +15,25 @@
    ["/search" {:name :page/search, :private false}]
    ["/checkout" {:name :page/checkout, :private false}]
    ["/games"
-    {:name        :page/games
-     :private     false
-     :controllers [{:start #(rf/dispatch [:api/fetch-games {:limit 8}])}]}]
-   ["/game/:id"
-    {:name        :page/game
-     :private     false
-     :controllers [{:parameters {:path  [:id]}
-                    :start #(rf/dispatch [:api/fetch-game (get-in % [:path :id])])}]}]
+    ["/"
+     {:name        :page/games
+      :private     false
+      :controllers [{:start #(rf/dispatch [:api/fetch-games {:limit 8}])}]}]
+    ["/:id"
+     {:name        :page/game
+      :private     false
+      :controllers [{:parameters {:path [:id]}
+                     :start      #(rf/dispatch [:api/fetch-game (get-in % [:path :id])])}]}]]
    ["/videos"
-    {:name        :page/videos
-     :private     false
-     :controllers [{:start #(rf/dispatch [:api/fetch-videos {:limit 8}])}]}]
-   ["/video/:id"
-    {:name        :page/video
-     :private     false
-     :controllers [{:parameters {:path  [:id]}
-                    :start #(rf/dispatch [:api/fetch-video (get-in % [:path :id])])}]}]])
+    ["/"
+     {:name        :page/videos
+      :private     false
+      :controllers [{:start #(rf/dispatch [:api/fetch-videos {:limit 8}])}]}]
+    ["/:id"
+     {:name        :page/video
+      :private     false
+      :controllers [{:parameters {:path [:id]}
+                     :start      #(rf/dispatch [:api/fetch-video (get-in % [:path :id])])}]}]]])
 
 
 (def router
