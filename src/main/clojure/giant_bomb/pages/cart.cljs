@@ -51,7 +51,7 @@
               :on-click #(when (js/confirm "Are you sure?")
                            (rf/dispatch [:cart/clear])
                            (js/alert (str/format "You bought %s game%s. Thank you very much!" n (if (< n 2) "" "s"))))}
-             "Checkout"]]
+             "Confirm order"]]
            [:div.mt-6.flex.justify-center.text-center.text-sm.text-gray-500.gap-2
             [:span "or"]
             [:button.font-medium.text-indigo-600.hover:text-indigo-500
@@ -63,5 +63,5 @@
 (defn page
   []
   (let [cart @(rf/subscribe [:cart])]
-    [:div.max-w-4xl.mx-auto.mt-28.p-10
+    [:div.max-w-7xl.mx-auto.mt-24.p-10
      [cart-items cart]]))
