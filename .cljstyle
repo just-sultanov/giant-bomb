@@ -3,4 +3,5 @@
  :rules {:blank-lines {:max-consecutive 3}
          :types       {:enabled? false}
          :namespaces  {:import-break-width 130}
-         :indentation {:indents {fn-traced [[:inner 0]]}}}}
+         :indentation {:indents {fn-traced [[:inner 0]]
+                                 with-let  [[:inner 0]]}}}}
