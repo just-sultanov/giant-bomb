@@ -19,7 +19,7 @@
    [:div.flex-1
     [:a.ml-8.whitespace-nowrap.inline-flex.items-center.justify-center.px-4.py-2.border.border-transparent.rounded-md.shadow-sm.text-2xl.bg-violet-600.hover:bg-violet-700
      {:href @(rf/subscribe [:href :page/games])}
-     [:span "Explore"]]]])
+     [:span "Explore games"]]]])
 
 
 (defn- build-info
