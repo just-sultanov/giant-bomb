@@ -26,7 +26,7 @@
   [associations]
   [:div.mt-4.gap-2.px-4.pb-4
    (into [:ul.flex.flex-wrap.gap-2]
-         (for [{:keys [name guid]} associations]
+         (for [{:keys [name]} associations]
            [:li.rounded-sm.bg-gray-200.px-2
             [:p.text-gray-600 {:class "text-[10px]"} name]]))])
 
