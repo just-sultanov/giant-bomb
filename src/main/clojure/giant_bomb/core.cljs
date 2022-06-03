@@ -11,11 +11,6 @@
     [reagent.dom :as dom]))
 
 
-(defn square
-  [x]
-  (* x x))
-
-
 (defn init!
   "Initialize services."
   []
