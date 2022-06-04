@@ -5,17 +5,17 @@
 
 (rf/reg-event-db
   :cart/add-item
-  (fn [db [_ item]]
-    (update db :cart (fnil conj #{}) item)))
+  (fn [db [_ {:as item :keys [guid]}]]
+    (update db :cart assoc guid item)))
 
 
 (rf/reg-event-db
   :cart/remove-item
-  (fn [db [_ item]]
-    (update db :cart (fnil disj #{}) item)))
+  (fn [db [_ {:keys [guid]}]]
+    (update db :cart dissoc guid)))
 
 
 (rf/reg-event-db
   :cart/clear
   (fn [db _]
-    (assoc db :cart #{})))
+    (assoc db :cart {})))

@@ -41,26 +41,26 @@
 
 
 (defn game-cart
-  [guid]
-  (let [exists? @(rf/subscribe [:cart/has-item? guid])]
+  [game]
+  (let [exists? @(rf/subscribe [:cart/has-item? game])]
     [:div.gap-2.p-2
      [:button.w-full.rounded-md.shadow-md.px-4.py-2.inline-flex.justify-center.items-center.gap-2.text-white
       {:type     "button"
        :class    (if exists? "bg-red-500 hover:bg-red-400" "bg-green-500 hover:bg-green-400")
        :on-click #(if exists?
-                    (rf/dispatch [:cart/remove-item guid])
-                    (rf/dispatch [:cart/add-item guid]))}
+                    (rf/dispatch [:cart/remove-item game])
+                    (rf/dispatch [:cart/add-item game]))}
       [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
       [:span.text-md (if exists? "Remove from Cart" "Add to Cart")]]]))
 
 
 (defn game-card
-  [{:as game :keys [guid platforms deck number_of_user_reviews]}]
+  [{:as game :keys [platforms deck number_of_user_reviews]}]
   [:div.relative.bg-white.dark:bg-gray-500.rounded-md.shadow-md
    [:div.w-full.min-h-80.bg-gray-200.aspect-w-1.aspect-h-1.rounded-t-md.overflow-hidden.lg:h-80
     [game-image game]
     [game-rating number_of_user_reviews]]
-   [game-cart guid]
+   [game-cart game]
    [:div.mt-4.flex.justify-between.gap-2.px-4.pb-4
     [:div
      [:h3.text-sm.text-gray-700.dark:text-gray-200

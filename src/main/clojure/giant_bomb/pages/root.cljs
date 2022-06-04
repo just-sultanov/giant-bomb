@@ -10,7 +10,8 @@
     [giant-bomb.pages.video :as video]
     [giant-bomb.pages.videos :as videos]
     [heroicons.outline :as icons.outline]
-    [re-frame.core :as rf]))
+    [re-frame.core :as rf]
+    [reagent.core :as r]))
 
 
 (defn- logotype
@@ -25,38 +26,55 @@
       [:img.h-12.w-36.min-w-36 {:src src :alt "logotype"}]]]))
 
 
+(defn cart-counter
+  []
+  (let [n @(rf/subscribe [:cart/count])]
+    [:div.flex.items-center.gap-2
+     (when (pos? n)
+       [:div.rounded-md.bg-gray-200.px-2
+        [:span.font-bold.text-gray-600 n]])]))
+
+
 (def navbar-items
   [{:label "Home" :href :page/home :icon icons.outline/home-icon}
    {:label "Games" :href :page/games :icon icons.outline/chip-icon}
    {:label "Videos" :href :page/videos :icon icons.outline/video-camera-icon}
-   {:label "Cart" :href :page/cart :icon icons.outline/shopping-cart-icon}
-   {:label "Search" :href :page/search :icon icons.outline/search-icon}])
+   {:label "Cart" :href :page/cart :icon icons.outline/shopping-cart-icon :children cart-counter}])
 
 
 (defn- navbar-links
   []
   (let [route-name @(rf/subscribe [:navigation/route-name])]
     (into [:div.flex.flex-1.items-center.h-12.space-x-8.p-2]
-          (for [{:keys [href icon label]} navbar-items]
+          (for [{:keys [href icon label children]} navbar-items]
             (let [active? (= route-name href)]
               [:a.flex.items-center.gap-2.text-base.font-medium.hover:text-gray-900.dark:hover:text-gray-100.h-24
                {:href  @(rf/subscribe [:href href])
                 :class (if active? "text-gray-700 dark:text-white" "text-gray-500 dark:text-gray-400")}
                [icon {:class "h-6"}]
-               [:span label]])))))
+               [:span label]
+               (when children [children])])))))
 
 
 (defn- toggle-theme
   []
   [:button {:type "button" :on-click #(rf/dispatch [:app/toggle-theme])}
    [:span.sr-only "Dark mode"]
-   [icons.outline/sparkles-icon {:class "h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white" :aria-hidden "true"}]])
+   [icons.outline/sparkles-icon {:class "h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white" :aria-hidden true}]])
+
+
+(defn search
+  []
+  [:button {:type "button" :on-click #(rf/dispatch [:navigation/redirect {:route-name :page/search}])}
+   [:span.sr-only "Search"]
+   [icons.outline/search-icon {:class "h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white" :aria-hidden true}]])
 
 
 (defn- navbar-controls
   []
   [:div.flex.flex-1.justify-end.items-center.space-x-5
    [:div.flex.space-x-5
+    [search]
     [toggle-theme]]])
 
 

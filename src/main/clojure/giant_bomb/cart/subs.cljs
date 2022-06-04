@@ -6,23 +6,25 @@
 (rf/reg-sub
   :cart
   (fn [db _]
-    (or (:cart db) #{})))
+    (or (:cart db) {})))
+
+
+(rf/reg-sub
+  :cart/count
+  :<- [:cart]
+  (fn [cart _]
+    (count cart)))
 
 
 (rf/reg-sub
   :cart/has-item?
   :<- [:cart]
-  (fn [cart [_ item]]
-    (contains? cart item)))
+  (fn [cart [_ {:keys [guid]}]]
+    (boolean (get cart guid))))
 
 
 (rf/reg-sub
   :cart/game
-  (fn [db [_ id]]
-    (let [cart (or (:cart db) #{})]
-      (->> (:games db)
-           (filter
-             (fn [{:keys [guid]}]
-               (and (contains? cart guid)
-                    (= guid id))))
-           (first)))))
+  :<- [:cart]
+  (fn [cart [_ id]]
+    (get cart id)))

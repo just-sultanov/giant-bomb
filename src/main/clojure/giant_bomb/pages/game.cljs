@@ -26,7 +26,7 @@
 
 (defn game-card
   [{:as game :keys [guid name image deck platforms genres similar_games]}]
-  (let [exists? @(rf/subscribe [:cart/has-item? guid])]
+  (let [exists? @(rf/subscribe [:cart/has-item? game])]
     ^{:key guid}
     [:div.bg-white.dark:bg-gray-500.rounded-md.shadow-md
      [:div.pt-6
@@ -44,8 +44,8 @@
            {:type     "button"
             :class    (if exists? "bg-red-500 hover:bg-red-400" "bg-green-500 hover:bg-green-400")
             :on-click #(if exists?
-                         (rf/dispatch [:cart/remove-item guid])
-                         (rf/dispatch [:cart/add-item guid]))}
+                         (rf/dispatch [:cart/remove-item game])
+                         (rf/dispatch [:cart/add-item game]))}
            [icons.outline/shopping-cart-icon {:class "w-6 h-6"}]
            [:span.text-md (if exists? "Remove from Cart" "Add to Cart")]]]]
         [:div.py-10.lg:pt-6.lg:pb-16.lg:col-start-1.lg:col-span-2
