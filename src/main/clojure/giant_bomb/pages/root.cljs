@@ -10,8 +10,7 @@
     [giant-bomb.pages.video :as video]
     [giant-bomb.pages.videos :as videos]
     [heroicons.outline :as icons.outline]
-    [re-frame.core :as rf]
-    [reagent.core :as r]))
+    [re-frame.core :as rf]))
 
 
 (defn- logotype
